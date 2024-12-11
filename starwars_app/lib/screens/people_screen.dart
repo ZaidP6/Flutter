@@ -44,7 +44,8 @@ class _PeopleScreenState extends State<PeopleScreen> {
                     leading: CircleAvatar(
                       radius: 30,
                       backgroundImage: NetworkImage(
-                        'https://www.example.com/character-image.png', // Asegúrate de poner la URL de la imagen
+                        'https://www.example.com/character-image.png' ??
+                            'https://starwars-visualguide.com/assets/img/big-placeholder.jpg', // Asegúrate de poner la URL de la imagen
                       ),
                     ),
                     title: Text(character.name ?? 'Desconocido'),
