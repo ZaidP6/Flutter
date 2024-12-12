@@ -22,7 +22,11 @@ class _PeopleScreenState extends State<PeopleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Star Wars Characters'),
+        title: const Text(
+          'Star Wars Characters',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        ),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       body: FutureBuilder<PeopleResponse>(
         future: peopleList,
@@ -34,28 +38,52 @@ class _PeopleScreenState extends State<PeopleScreen> {
               itemBuilder: (context, index) {
                 var character = snapshot.data!.results![index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 5,
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    leading: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        'https://www.example.com/character-image.png' ??
-                            'https://starwars-visualguide.com/assets/img/big-placeholder.jpg', // Asegúrate de poner la URL de la imagen
-                      ),
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    title: Text(character.name ?? 'Desconocido'),
-                    subtitle: Text('Height: ${character.height} cm'),
-                    trailing: Icon(Icons.arrow_forward),
-                    onTap: () {
-                      // Aquí puedes agregar lógica para redirigir o mostrar detalles
-                    },
-                  ),
-                );
+                    elevation: 5,
+                    child: Container(
+                      height: 150,
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 8 / 11,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: FadeInImage.assetNetwork(
+                                placeholder:
+                                    'https://starwars-visualguide.com/assets/img/big-placeholder.jpg',
+                                image:
+                                    'https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg',
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(20.0),
+                            padding: EdgeInsets.all(5.0),
+                            child: Column(
+                              children: [
+                                Title(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    child: Text(
+                                      character.name ?? 'Desconocido',
+                                    )
+                                ),
+                                Row(
+                                  //lista peliculas en las que sale (la imagen de la peli)
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ));
               },
             );
           } else if (snapshot.hasError) {
@@ -82,3 +110,39 @@ class _PeopleScreenState extends State<PeopleScreen> {
     }
   }
 }
+
+
+/*
+if (snapshot.hasData) {
+            return ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: snapshot.data!.results!.length,
+              itemBuilder: (context, index) {
+                var character = snapshot.data!.results![index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 5,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    leading: const CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        'https://www.example.com/character-image.png' ??
+                            'https://starwars-visualguide.com/assets/img/big-placeholder.jpg',
+                      ),
+                    ),
+                    title: Text(character.name ?? 'Desconocido'),
+                    subtitle: Text('Height: ${character.height} cm'),
+                    trailing: const Icon(Icons.arrow_forward),
+                    onTap: () {
+                      //Ir a detalles
+                    },
+                  ),
+                );
+              },
+            );
+          }
+*/
