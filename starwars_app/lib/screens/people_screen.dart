@@ -67,16 +67,30 @@ class _PeopleScreenState extends State<PeopleScreen> {
                           Container(
                             margin: EdgeInsets.all(20.0),
                             padding: EdgeInsets.all(5.0),
+                            width: double.infinity,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Title(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     child: Text(
-                                      character.name ?? 'Desconocido',
-                                    )
-                                ),
+                                      (character.name ?? 'Desconocido')
+                                          .toUpperCase(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    )),
                                 Row(
                                   //lista peliculas en las que sale (la imagen de la peli)
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // Aquí puedes añadir las imágenes de las películas
+                                    Icon(Icons.movie, size: 40),
+                                    Icon(Icons.movie, size: 40),
+                                  ],
                                 )
                               ],
                             ),
