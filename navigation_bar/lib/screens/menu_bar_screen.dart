@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:navigation_bar/screens/home_screen.dart';
+import 'package:navigation_bar/screens/movie_screen.dart';
 
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});
@@ -8,24 +10,43 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
+  int _selectedIndex = 0; 
+
+  final List<Widget> _pages = <Widget>[
+    const Home(),
+    const Movie(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Text('Instagram'),
-    body: ,
-    bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
-      BottomNavigationBarItem(icon: Icon(Icons.home),
+      appBar: AppBar(
+        title: const Text('TMDB'),
+        centerTitle: true, 
       ),
-      BottomNavigationBarItem(icon: Icon(Icons.search),
+      body: _pages[_selectedIndex], 
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex, 
+        onTap: _onItemTapped, 
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey, 
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie),
+            label: '',
+          ),
+        ],
       ),
-      BottomNavigationBarItem(icon: Icon(Icons.add),
-      ),
-      BottomNavigationBarItem(icon: Icon(Icons.favorite),
-      ),
-      BottomNavigationBarItem(icon: Icon(Icons.person),
-      ),
-    ]),
-      
     );
   }
 }
